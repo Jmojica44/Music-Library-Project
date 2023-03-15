@@ -69,7 +69,7 @@ class ProductListResource(Resource):
 class ProductResource(Resource):
     def get(self, pk):
         product_from_db = Product.query.get_or_404(pk)
-        return product_schema.dump(product_from_db)
+        return product_schema.dump(product_from_db), 200
     def delete(self,pk):
         product_from_db = Product.query.get_or_404(pk)
         db.session.delete(product_from_db)
@@ -85,7 +85,7 @@ class ProductResource(Resource):
         if 'inventory_quantity' in request.json:
             product_from_db.inventory_quantity = request.json['inventory_quantity']
         db.session.commit()
-        return product_schema.dump(product_from_db)
+        return product_schema.dump(product_from_db), 200
     
 # Routes
 
